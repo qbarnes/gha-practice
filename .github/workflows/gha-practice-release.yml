@@ -26,9 +26,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: build tar files
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v1.0.0
-        with:
-        name: tarballs
-        path:
+        run: make
+#      - name: Upload artifact
+#        uses: actions/upload-artifact@v1.0.0
+#        with:
+#        name: tarballs
+#        path:

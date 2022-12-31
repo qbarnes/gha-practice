@@ -2,8 +2,9 @@ name: gha-practice-build
 
 on:
   push:
-    branches:
-      - test_build
+    branches: [ "test_build" ]
+  pull_request:
+    branches: [ "test_build" ]
 
 
 #permissions:
