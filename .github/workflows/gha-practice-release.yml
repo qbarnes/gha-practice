@@ -1,0 +1,34 @@
+name: gha-practice-release
+
+on:
+  branches:
+    - master
+  push:
+    paths:
+      - 'version.h'
+
+#  label:
+#    types:
+#      - [created, edited]
+
+
+#permissions:
+#add this later
+
+
+jobs:
+  build:
+    uses: ./.github/workflows/cw2dmk-build
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: build tar files
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1.0.0
+        with:
+        name: tarballs
+        path:

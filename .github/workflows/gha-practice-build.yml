@@ -1,0 +1,27 @@
+name: gha-practice-build
+
+on:
+  push:
+    branches:
+      - test_build
+
+
+#permissions:
+#add this later
+
+
+jobs:
+  build_all:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build Linux
+        run:  make
+
+      - name: Build MS-DOS
+        run:  make TARGET_OS=MSDOS
+
+      - name: Build Full Release
+        run:  make fullrelease
+
