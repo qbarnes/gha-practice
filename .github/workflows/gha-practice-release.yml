@@ -1,9 +1,9 @@
 name: gha-practice-release
 
 on:
-  branches:
-    - master
   push:
+    branches:
+      - master
     paths:
       - 'version.h'
 
