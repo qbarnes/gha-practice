@@ -19,6 +19,7 @@ on:
 jobs:
   build:
     uses: ./.github/workflows/gha-practice-build.yml
+    secrets: inherit
 
   release:
     needs: build
