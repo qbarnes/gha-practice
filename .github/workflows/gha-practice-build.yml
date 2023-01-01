@@ -1,6 +1,7 @@
 name: gha-practice-build
 
 on:
+  workflow_call:
   push:
     branches: [ "test_build" ]
   pull_request:
