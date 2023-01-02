@@ -27,7 +27,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: build tar files
-        run: make
+        run: make fullrelease
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
