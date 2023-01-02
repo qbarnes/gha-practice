@@ -31,5 +31,5 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          path: ./cw2dmk-*.tar.gz
+          path: ./gha-practice-*.tar.gz
           if-no-files-found: error
