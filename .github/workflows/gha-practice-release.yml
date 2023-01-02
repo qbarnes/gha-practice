@@ -19,15 +19,16 @@ on:
 jobs:
   release:
     name: Make Release
-    uses: ./.github/workflows/gha-practice-build.yml
-    secrets: inherit
     runs-on: ubuntu-latest
+    secrets: inherit
     needs: build_all
     steps:
 #      - uses: actions/checkout@v3
 #      - name: build tar files
 #        run: make fullrelease
-      - run: echo ${{ needs.build_all.outputs.build_version }}
+      - uses: ./.github/workflows/gha-practice-build.yml
+        with:
+          build_version: ${{ needs.build_all.outputs.build_version }}
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
