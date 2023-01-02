@@ -22,7 +22,6 @@ jobs:
   release:
     name: Make Release
     runs-on: ubuntu-latest
-    secrets: inherit
     needs: build_all
     steps:
 #      - uses: actions/checkout@v3
