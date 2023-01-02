@@ -17,17 +17,17 @@ on:
 
 
 jobs:
-  build:
+  release:
+    name: Make Release
     uses: ./.github/workflows/gha-practice-build.yml
     secrets: inherit
-
-  release:
-    needs: build
     runs-on: ubuntu-latest
+    needs: build_all
     steps:
-      - uses: actions/checkout@v3
-      - name: build tar files
-        run: make fullrelease
+#      - uses: actions/checkout@v3
+#      - name: build tar files
+#        run: make fullrelease
+      - run: echo ${{ needs.build_all.outputs.build_version }}
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:

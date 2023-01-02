@@ -2,6 +2,18 @@ name: gha-practice-build
 
 on:
   workflow_call:
+    inputs:
+      config-path:
+        required: true
+        type: string
+      secrets:
+        envPAT:
+          required: true
+    outputs:
+      build_version:
+        description: Build version
+        value: ${{ jobs.build_all.outputs.build_version }}
+
   push:
     branches: [ "test_build" ]
   pull_request:
@@ -27,3 +39,5 @@ jobs:
       - name: Build Full Release
         run:  make fullrelease
 
+      - id: build_version
+        run: make show_version >> $GITHUB_OUTPUT
