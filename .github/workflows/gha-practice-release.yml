@@ -33,6 +33,16 @@ jobs:
         with:
           submodules: true
 
+      - name: Prep cross-compiler
+        run: |
+          wget https://github.com/andrewwutw/build-djgpp/releases/download/v3.1/djgpp-linux64-gcc1020.tar.bz2
+          mkdir local
+          tar -xf djgpp-linux64-gcc1020.tar.bz2 -C local
+          echo "PATH=$PWD/local:$PATH" >> $GITHUB_ENV
+          ls -l
+          ls -l local
+          env
+
       - name: Read version and save in "build_version" environment var
         id: build_version
         run: echo "build_version=$(make show_version)" >> $GITHUB_ENV
