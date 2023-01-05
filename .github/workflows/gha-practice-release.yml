@@ -37,5 +37,7 @@ jobs:
           if-no-files-found: error
 
       - name: Show version
-        run: echo ${{ needs.build_all.outputs.build_version }}
-
+        run: |
+          echo needs.build_all.outputs.build_version=${{ needs.build_all.outputs.build_version }}
+          echo env.build_version=${{ env.build_version }}
+          env

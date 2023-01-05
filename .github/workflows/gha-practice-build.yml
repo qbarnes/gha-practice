@@ -12,7 +12,7 @@ on:
     outputs:
       build_version:
         description: Build version
-        value: ${{ jobs.build_all.outputs.build_version }}
+        value: ${{ env.build_version }}
 
   push:
     branches: [ "test_build" ]
@@ -30,6 +30,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Read version and save in "build_version" environment var
+        id: build_version
+        run: echo "build_version=$(make show_version)" >> $GITHUB_ENV
+
       - name: Build Linux
         run:  make
 
@@ -38,6 +42,3 @@ jobs:
 
       - name: Build Full Release
         run:  make fullrelease
-
-      - id: build_version
-        run: make show_version >> $GITHUB_OUTPUT
