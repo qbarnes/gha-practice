@@ -53,8 +53,8 @@ jobs:
       - id: build_version
         run: echo "build_version=${{ env.build_version }}" >> $GITHUB_OUTPUT
 
-      - id: release_files
-        run: echo "release_files=gha-practice-${{ env.build_version }}-src.tar.gz >> $GITHUB_OUTPUT
+      - name: Add source tarball to release_files
+        run: echo "release_files=${release_files}${release_files:+ }gha-practice-${{ env.build_version }}-src.tar.gz >> $GITHUB_ENV
 
       - name: Check env
         run: env
@@ -62,14 +62,17 @@ jobs:
       - name: Build Linux
         run:  make
 
-      - id: release_files
-        run: echo "release_files=${{ steps.build_all.outputs.release_files }} gha-practice-${{ env.build_version }}-linux-x86_64.tar.gz >> $GITHUB_OUTPUT
+      - name: Add linux tarball to release_files
+        run: echo "release_files=${release_files}${release_files:+ }gha-practice-${{ env.build_version }}-linux-x86_64.tar.gz >> $GITHUB_ENV
 
       - name: Build MS-DOS
         run:  make TARGET_OS=MSDOS
 
+      - name: Add MS-DOS tarball to release_files
+        run: echo "release_files=${{ steps.build_all.outputs.release_files }} gha-practice-${{ env.build_version }}-msdos.tar.gz >> $GITHUB_ENV
+
       - id: release_files
-        run: echo "release_files=${{ steps.build_all.outputs.release_files }} gha-practice-${{ env.build_version }}-msdos.tar.gz >> $GITHUB_OUTPUT
+        run: echo "release_files=${{ env.release_files }} >> $GITHUB_OUTPUT
 
       - name: Build Full Release
         run:  make fullrelease
