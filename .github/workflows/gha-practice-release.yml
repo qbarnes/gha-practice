@@ -87,9 +87,10 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: build-release-artifacts-${{ env.build_version }}
-          #path: ./gha-practice-${{ env.build_version }}-*.tar.gz
-          path: ${{ steps.build_all.outputs.release_files }}
+          path: |
+            ${{ env.release_files }}
           if-no-files-found: error
+          #path: ./gha-practice-${{ env.build_version }}-*.tar.gz
 
   release:
     name: Make Release
