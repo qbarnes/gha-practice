@@ -67,7 +67,7 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
-          path: ./gha-practice-${{ env.build_version }}.tar.gz
+          path: ./gha-practice-${{ env.build_version }}-*.tar.gz
           if-no-files-found: error
 
   release:
