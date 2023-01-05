@@ -58,7 +58,7 @@ jobs:
           echo "release_files<<EOF" >> $GITHUB_ENV
           echo -e "${release_files}${release_files:+\n}gha-practice-${{ env.build_version }}-src.tar.gz" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-          echo "release_files=$release_files" >> $GITHUB_ENV
+          echo "release_files=$release_files"
 
       - name: Check env
         run: env
@@ -71,7 +71,7 @@ jobs:
           echo "release_files<<EOF" >> $GITHUB_ENV
           echo -e "${release_files}${release_files:+\n}gha-practice-${{ env.build_version }}-linux-x86_64.tar.gz" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-          echo "release_files=$release_files" >> $GITHUB_ENV
+          echo "release_files=$release_files"
 
       - name: Build MS-DOS
         run:  make TARGET_OS=MSDOS
@@ -81,14 +81,14 @@ jobs:
           echo "release_files<<EOF" >> $GITHUB_ENV
           echo -e "${release_files}${release_files:+\n}gha-practice-${{ env.build_version }}-msdos.tar.gz" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-          echo "release_files=$release_files" >> $GITHUB_ENV
+          echo "release_files=$release_files"
 
 
       - name: Show release_files
-        run: echo -e "release_files=${{ env.release_files }}" >> $GITHUB_ENV
+        run: echo -e "release_files=${{ env.release_files }}"
 
       - name: srf2
-        run: echo "release_files=${{ env.release_files }}" >> $GITHUB_ENV
+        run: echo "release_files=${{ env.release_files }}"
 
       - id: release_files
         run: echo "release_files=${{ env.release_files }}" >> $GITHUB_OUTPUT
