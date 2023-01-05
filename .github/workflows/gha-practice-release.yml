@@ -63,16 +63,16 @@ jobs:
         run:  make
 
       - name: Add linux tarball to release_files
-        run: echo "release_files=${release_files}${release_files:+\n}gha-practice-${{ env.build_version }}-linux-x86_64.tar.gz" >> $GITHUB_ENV
+        run: echo -e "release_files=${release_files}${release_files:+\n}gha-practice-${{ env.build_version }}-linux-x86_64.tar.gz" >> $GITHUB_ENV
 
       - name: Build MS-DOS
         run:  make TARGET_OS=MSDOS
 
       - name: Add MS-DOS tarball to release_files
-        run: echo "release_files=${release_files}${release_files:+\n}gha-practice-${{ env.build_version }}-msdos.tar.gz" >> $GITHUB_ENV
+        run: echo -e "release_files=${release_files}${release_files:+\n}gha-practice-${{ env.build_version }}-msdos.tar.gz" >> $GITHUB_ENV
 
       - name: Show release_files
-        run: echo "release_files=${{ env.release_files }}" >> $GITHUB_ENV
+        run: echo -e "release_files=${{ env.release_files }}" >> $GITHUB_ENV
 
       - id: release_files
         run: echo "release_files=${{ env.release_files }}" >> $GITHUB_OUTPUT
