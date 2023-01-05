@@ -38,14 +38,19 @@ jobs:
           wget -nv https://github.com/andrewwutw/build-djgpp/releases/download/v3.1/djgpp-linux64-gcc1020.tar.bz2
           mkdir local
           tar -xf djgpp-linux64-gcc1020.tar.bz2 -C local
-          echo "PATH=$PWD/local/djgpp/bin:$PATH" >> $GITHUB_ENV
           ls -l
           ls -l local
-          env
+
+      - name: Add Cross compiler to PATH
+        id: PATH
+        run: echo "PATH=$PWD/local/djgpp/bin:$PATH" >> $GITHUB_ENV
 
       - name: Read version and save in "build_version" environment var
         id: build_version
         run: echo "build_version=$(make show_version)" >> $GITHUB_ENV
+
+      - name: Check env
+        run: env
 
       - name: Build Linux
         run:  make
