@@ -19,7 +19,7 @@ on:
 
 
 jobs:
-  build:
+#  build:
 #    name: Build All
 #    runs-on: ubuntu-latest
 #    steps:
