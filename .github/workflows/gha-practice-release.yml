@@ -61,16 +61,28 @@ jobs:
       - name: Build Full Release
         run:  make fullrelease
 
+      - name: Check build
+        run: ls -l
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          path: ./gha-practice-${{ env.build_version }}.tar.gz
+          if-no-files-found: error
+
   release:
     name: Make Release
     runs-on: ubuntu-latest
     needs: build_all
     steps:
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
         with:
           path: ./gha-practice-*.tar.gz
           if-no-files-found: error
+
+      - name: Check for files
+        run: ls -l
 
       - name: Show version
         run: |
