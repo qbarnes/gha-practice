@@ -67,6 +67,7 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
+          name: build-release-artifacts-${{ env.build_version }}
           path: ./gha-practice-${{ env.build_version }}-*.tar.gz
           if-no-files-found: error
 
@@ -78,8 +79,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v3
         with:
-          path: ./gha-practice-*.tar.gz
-          if-no-files-found: error
+          name: build-release-artifacts-${{ needs.build_all.outputs.build_version }}
 
       - name: Check for files
         run: ls -l
