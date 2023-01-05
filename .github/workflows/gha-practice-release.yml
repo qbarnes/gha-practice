@@ -30,6 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       build_version: ${{ steps.build_version.outputs.build_version }}
+      release_files: ${{ steps.release_files.outputs.release_files }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -44,7 +45,6 @@ jobs:
           ls -l local
 
       - name: Add cross-compiler to PATH
-        #id: PATH
         run: echo "PATH=$PWD/local/djgpp/bin:$PATH" >> $GITHUB_ENV
 
       - name: Read version and save in "build_version" environment var
@@ -53,14 +53,23 @@ jobs:
       - id: build_version
         run: echo "build_version=${{ env.build_version }}" >> $GITHUB_OUTPUT
 
+      - id: release_files
+        run: echo "release_files=gha-practice-${{ env.build_version }}-src.tar.gz >> $GITHUB_OUTPUT
+
       - name: Check env
         run: env
 
       - name: Build Linux
         run:  make
 
+      - id: release_files
+        run: echo "release_files=${{ steps.build_all.outputs.release_files }} gha-practice-${{ env.build_version }}-linux-x86_64.tar.gz >> $GITHUB_OUTPUT
+
       - name: Build MS-DOS
         run:  make TARGET_OS=MSDOS
+
+      - id: release_files
+        run: echo "release_files=${{ steps.build_all.outputs.release_files }} gha-practice-${{ env.build_version }}-msdos.tar.gz >> $GITHUB_OUTPUT
 
       - name: Build Full Release
         run:  make fullrelease
@@ -72,7 +81,8 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: build-release-artifacts-${{ env.build_version }}
-          path: ./gha-practice-${{ env.build_version }}-*.tar.gz
+          #path: ./gha-practice-${{ env.build_version }}-*.tar.gz
+          path: ${{ steps.build_all.outputs.release_files }}
           if-no-files-found: error
 
   release:
@@ -83,7 +93,7 @@ jobs:
       - name: Show version
         run: |
           echo needs.build_all.outputs.build_version=${{ needs.build_all.outputs.build_version }}
-          echo env.build_version=${{ env.build_version }}
+          echo needs.build_all.outputs.release_files=${{ needs.build_all.outputs.release_files }}
           env
 
       - name: Download artifacts
