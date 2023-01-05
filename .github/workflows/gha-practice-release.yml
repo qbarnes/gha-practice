@@ -69,13 +69,13 @@ jobs:
         run:  make TARGET_OS=MSDOS
 
       - name: Add MS-DOS tarball to release_files
-        run: echo "release_files=${{ steps.build_all.outputs.release_files }} gha-practice-${{ env.build_version }}-msdos.tar.gz" >> $GITHUB_ENV
+        run: echo "release_files=${release_files}${release_files:+ }gha-practice-${{ env.build_version }}-msdos.tar.gz" >> $GITHUB_ENV
 
       - name: Show release_files
         run: echo "release_files=${{ env.release_files }}" >> $GITHUB_ENV
 
       - id: release_files
-        run: echo "release_files=${{ env.release_files }} >> $GITHUB_OUTPUT
+        run: echo "release_files=${{ env.release_files }}" >> $GITHUB_OUTPUT
 
       - name: Build Full Release
         run:  make fullrelease
