@@ -9,6 +9,10 @@ on:
   workflow_dispatch:
 
 
+env:
+  package: gha-practice
+
+
 #  label:
 #    types:
 #      - [created, edited]
@@ -46,12 +50,12 @@ jobs:
         run: echo "build_version=$(make show_version)" >> $GITHUB_ENV
 
       - id: build_version
-        run: echo "build_version=${{ env.build_version }}" >> $GITHUB_OUTPUT
+        run: echo "build_version=${build_version}" >> $GITHUB_OUTPUT
 
       - name: Add source tarball to "release_files"
         run: |
           echo "release_files<<EOF" >> $GITHUB_ENV
-          echo -e "${release_files}${release_files:+\n}gha-practice-${{ env.build_version }}-src.tar.gz" >> $GITHUB_ENV
+          echo -e "${release_files}${release_files:+\n}${package}-${build_version}-src.tar.gz" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
       - name: Build Linux
@@ -60,7 +64,7 @@ jobs:
       - name: Add linux tarball to "release_files"
         run: |
           echo "release_files<<EOF" >> $GITHUB_ENV
-          echo -e "${release_files}${release_files:+\n}gha-practice-${{ env.build_version }}-linux-x86_64.tar.gz" >> $GITHUB_ENV
+          echo -e "${release_files}${release_files:+\n}${package}-${build_version}-linux-x86_64.tar.gz" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
       - name: Build MS-DOS
@@ -69,7 +73,7 @@ jobs:
       - name: Add MS-DOS tarball to "release_files"
         run: |
           echo "release_files<<EOF" >> $GITHUB_ENV
-          echo -e "${release_files}${release_files:+\n}gha-practice-${{ env.build_version }}-msdos.tar.gz" >> $GITHUB_ENV
+          echo -e "${release_files}${release_files:+\n}${package}-${build_version}-msdos.tar.gz" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
       - name: Build full release
