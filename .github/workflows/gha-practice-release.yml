@@ -30,7 +30,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       build_version: ${{ steps.build_version.outputs.build_version }}
-      release_files: ${{ steps.release_files.outputs.release_files }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -40,12 +39,10 @@ jobs:
         run: |
           wget -nv https://github.com/andrewwutw/build-djgpp/releases/download/v3.1/djgpp-linux64-gcc1020.tar.bz2
           mkdir local
-          tar -xf djgpp-linux64-gcc1020.tar.bz2 -C local
-          ls -l
-          ls -l local
+          tar -xf djgpp-linux64-gcc1020.tar.bz2 -C djgpp
 
       - name: Add cross-compiler to PATH
-        run: echo "PATH=$PWD/local/djgpp/bin:$PATH" >> $GITHUB_ENV
+        run: echo "PATH=$PWD/djgpp/bin:$PATH" >> $GITHUB_ENV
 
       - name: Read version and save in "build_version" environment var
         run: echo "build_version=$(make show_version)" >> $GITHUB_ENV
@@ -92,9 +89,6 @@ jobs:
       - name: Show release_files
         run: echo "release_files=${{ env.release_files }}"
 
-#      - id: release_files
-#        run: echo "release_files=${{ env.release_files }}" >> $GITHUB_OUTPUT
-
       - name: Build Full Release
         run:  make fullrelease
 
@@ -118,7 +112,6 @@ jobs:
       - name: Show version
         run: |
           echo needs.build_all.outputs.build_version=${{ needs.build_all.outputs.build_version }}
-          echo needs.build_all.outputs.release_files=${{ needs.build_all.outputs.release_files }}
           env
 
       - name: Download artifacts
