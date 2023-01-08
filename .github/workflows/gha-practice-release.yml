@@ -35,56 +35,51 @@ jobs:
         with:
           submodules: true
 
-      - name: Prep cross-compiler
+      - name: Prep cross-compiler and add to PATH
         run: |
           wget -nv https://github.com/andrewwutw/build-djgpp/releases/download/v3.1/djgpp-linux64-gcc1020.tar.bz2
           mkdir local
           tar -xf djgpp-linux64-gcc1020.tar.bz2 -C djgpp
+          echo "PATH=$PWD/djgpp/bin:$PATH" >> $GITHUB_ENV
 
-      - name: Add cross-compiler to PATH
-        run: echo "PATH=$PWD/djgpp/bin:$PATH" >> $GITHUB_ENV
-
-      - name: Read version and save in "build_version" environment var
+      - name: Read version and save in "build_version" environment variable
         run: echo "build_version=$(make show_version)" >> $GITHUB_ENV
 
       - id: build_version
         run: echo "build_version=${{ env.build_version }}" >> $GITHUB_OUTPUT
 
-      - name: Add source tarball to release_files
+      - name: Add source tarball to "release_files"
         run: |
           echo "release_files<<EOF" >> $GITHUB_ENV
           echo -e "${release_files}${release_files:+\n}gha-practice-${{ env.build_version }}-src.tar.gz" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-          echo "release_files=${release_files}"
 
       - name: Build Linux
         run:  make
 
-      - name: Add linux tarball to release_files
+      - name: Add linux tarball to "release_files"
         run: |
           echo "release_files<<EOF" >> $GITHUB_ENV
           echo -e "${release_files}${release_files:+\n}gha-practice-${{ env.build_version }}-linux-x86_64.tar.gz" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-          echo "release_files=${release_files}"
 
       - name: Build MS-DOS
         run:  make TARGET_OS=MSDOS
 
-      - name: Add MS-DOS tarball to release_files
+      - name: Add MS-DOS tarball to "release_files"
         run: |
           echo "release_files<<EOF" >> $GITHUB_ENV
           echo -e "${release_files}${release_files:+\n}gha-practice-${{ env.build_version }}-msdos.tar.gz" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-          echo "release_files=${release_files}"
 
-      - name: Show release_files
-        run: echo "release_files=${{ env.release_files }}"
-
-      - name: Build Full Release
+      - name: Build full release
         run:  make fullrelease
 
       - name: Check build
         run: ls -l
+
+      - name: Show release_files
+        run: echo "release_files=${{ env.release_files }}"
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
@@ -93,7 +88,6 @@ jobs:
           path: |
             ${{ env.release_files }}
           if-no-files-found: error
-          #path: ./gha-practice-${{ env.build_version }}-*.tar.gz
 
   release:
     name: Make Release
