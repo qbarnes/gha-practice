@@ -57,9 +57,6 @@ jobs:
           echo "EOF" >> $GITHUB_ENV
           echo "release_files=${release_files}"
 
-      - name: Check env
-        run: env
-
       - name: Build Linux
         run:  make
 
@@ -70,9 +67,6 @@ jobs:
           echo "EOF" >> $GITHUB_ENV
           echo "release_files=${release_files}"
 
-      - name: Check env
-        run: env
-
       - name: Build MS-DOS
         run:  make TARGET_OS=MSDOS
 
@@ -82,9 +76,6 @@ jobs:
           echo -e "${release_files}${release_files:+\n}gha-practice-${{ env.build_version }}-msdos.tar.gz" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
           echo "release_files=${release_files}"
-
-      - name: Check env
-        run: env
 
       - name: Show release_files
         run: echo "release_files=${{ env.release_files }}"
