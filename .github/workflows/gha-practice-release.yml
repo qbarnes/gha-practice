@@ -86,11 +86,19 @@ jobs:
 
       - name: Encode "release_files"
         run: |
-          release_files_enc="${release_files//'%'/'%25'}"
-          release_files_enc="${release_files_enc//$'\n'/'%0A'}"
-          release_files_enc="${release_files_enc//$'\r'/'%0D'}"
+          echo "release_files_enc<<EOF" >> $GITHUB_ENV
+          echo "${release_files//'%'/'%25'}" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+          echo ="${release_files_enc//$'\n'/'%0A'}" >> $GITHUB_ENV
+          echo "release_files_enc<<EOF" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+          echo "release_files_enc<<EOF" >> $GITHUB_ENV
+          echo "${release_files_enc//$'\r'/'%0D'}" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
           echo "${release_files_enc}"
-          #echo "${release_files_enc}" >> $GITHUB_ENV
           #echo "${release_files_enc}" >> $GITHUB_OUTPUT
 
       - name: Show "release_files"
@@ -124,9 +132,8 @@ jobs:
       - name: Check for files
         run: ls -l
 
-      - uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          prerelease: false
-          files: |
-
+#      - uses: "marvinpinto/action-automatic-releases@latest"
+#        with:
+#          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+#          prerelease: false
+#          files: |
