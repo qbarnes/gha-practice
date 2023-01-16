@@ -89,17 +89,19 @@ jobs:
           echo "release_files_enc<<EOF" >> $GITHUB_ENV
           echo "${release_files//'%'/'%25'}" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
+          echo "release_files_enc=${release_files_enc}"
 
           echo "release_files_enc<<EOF" >> $GITHUB_ENV
           echo "${release_files_enc//$'\n'/'%0A'}" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
+          echo "release_files_enc=${release_files_enc}"
 
           echo "release_files_enc<<EOF" >> $GITHUB_ENV
           echo "${release_files_enc//$'\r'/'%0D'}" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
+          echo "release_files_enc=${release_files_enc}"
 
-          echo "${release_files_enc}"
-          #echo "${release_files_enc}" >> $GITHUB_OUTPUT
+          #echo "release_files_enc=${release_files_enc}" >> $GITHUB_OUTPUT
 
       - name: Show "release_files"
         run: |
