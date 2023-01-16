@@ -93,8 +93,9 @@ jobs:
           echo "${release_files_enc}" >> $GITHUB_OUTPUT
 
       - name: Show "release_files"
-        run: echo "release_files=${release_files}"
-        run: echo "release_files_enc=${release_files_enc}"
+        run: |
+          echo "release_files=${release_files}"
+          echo "release_files_enc=${release_files_enc}"
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
