@@ -39,12 +39,12 @@ jobs:
         with:
           submodules: true
 
-#      - name: Prep cross-compiler and add to PATH
-#        run: |
+      - name: Prep cross-compiler and add to PATH
+        run: |
 #          wget -nv https://github.com/andrewwutw/build-djgpp/releases/download/v3.1/djgpp-linux64-gcc1020.tar.bz2
-#          mkdir djgpp
+          mkdir djgpp
 #          tar -xf djgpp-linux64-gcc1020.tar.bz2 -C djgpp
-#          #echo "PATH=$PWD/djgpp/bin:$PATH" >> $GITHUB_ENV
+          #echo "PATH=$PWD/djgpp/bin:$PATH" >> $GITHUB_ENV
           echo "$PWD/djgpp/bin" >> $GITHUB_PATH
           echo "$PATH"
 
