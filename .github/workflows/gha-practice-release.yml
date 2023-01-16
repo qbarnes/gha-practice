@@ -39,12 +39,12 @@ jobs:
         with:
           submodules: true
 
-      - name: Prep cross-compiler and add to PATH
-        run: |
-          wget -nv https://github.com/andrewwutw/build-djgpp/releases/download/v3.1/djgpp-linux64-gcc1020.tar.bz2
-          mkdir djgpp
-          tar -xf djgpp-linux64-gcc1020.tar.bz2 -C djgpp
-          #echo "PATH=$PWD/djgpp/bin:$PATH" >> $GITHUB_ENV
+#      - name: Prep cross-compiler and add to PATH
+#        run: |
+#          wget -nv https://github.com/andrewwutw/build-djgpp/releases/download/v3.1/djgpp-linux64-gcc1020.tar.bz2
+#          mkdir djgpp
+#          tar -xf djgpp-linux64-gcc1020.tar.bz2 -C djgpp
+#          #echo "PATH=$PWD/djgpp/bin:$PATH" >> $GITHUB_ENV
           echo "$PWD/djgpp/bin" >> $GITHUB_PATH
           echo "$PATH"
 
@@ -88,7 +88,8 @@ jobs:
         run: |
           echo "release_files_enc='aa %25 bb %0A cc %0D'" >> $GITHUB_ENV
           echo "release_files_enc<<EOF" >> $GITHUB_ENV
-          echo "${release_files_enc//'%'/'%25'}" >> $GITHUB_ENV
+          #echo "${release_files_enc//'%'/'%25'}" >> $GITHUB_ENV
+          echo "${release_files_enc//'aa'/'zz'}" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 #
 #          echo "release_files_enc<<EOF" >> $GITHUB_ENV
