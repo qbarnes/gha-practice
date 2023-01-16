@@ -90,7 +90,7 @@ jobs:
           release_files_enc="${release_files_enc//$'\n'/'%0A'}"
           release_files_enc="${release_files_enc//$'\r'/'%0D'}"
           echo "${release_files_enc}"
-          echo "${release_files_enc}" >> $GITHUB_ENV
+          #echo "${release_files_enc}" >> $GITHUB_ENV
           #echo "${release_files_enc}" >> $GITHUB_OUTPUT
 
       - name: Show "release_files"
