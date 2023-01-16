@@ -90,8 +90,8 @@ jobs:
           echo "${release_files//'%'/'%25'}" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
-          echo "${release_files_enc//$'\n'/'%0A'}" >> $GITHUB_ENV
           echo "release_files_enc<<EOF" >> $GITHUB_ENV
+          echo "${release_files_enc//$'\n'/'%0A'}" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
           echo "release_files_enc<<EOF" >> $GITHUB_ENV
