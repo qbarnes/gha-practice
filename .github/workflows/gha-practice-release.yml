@@ -91,8 +91,8 @@ jobs:
 
       - name: Encode "release_files"
         run: |
-          #echo "release_files_enc=$(($release_files_enc+1))" >> $GITHUB_ENV
-          echo "release_files_enc=$((${{ env.release_files_enc }}+1))" >> $GITHUB_ENV
+          echo "release_files_enc=$(($release_files_enc+1))" >> $GITHUB_ENV
+          #echo "release_files_enc=$((${{ env.release_files_enc }}+1))" >> $GITHUB_ENV
 
 #          #echo "${release_files_enc//'%'/'%25'}" >> $GITHUB_ENV
 #          echo "release_files_enc='aa %25 bb %0A cc %0D'" >> $GITHUB_ENV
