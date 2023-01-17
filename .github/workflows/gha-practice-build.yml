@@ -2,30 +2,29 @@ name: gha-practice-build
 
 on:
   workflow_dispatch:
+    inputs:
+      package_name:
+        name: Name of package
+        required: false
+        type: string
+        default: "gha-practice"
+
   workflow_call:
+    inputs:
+      package_name:
+        name: Name of package
+        required: false
+        type: string
+        default: "gha-practice"
     outputs:
       build_version:
         description: Build version
-        value: ${{ jobs.build_all.outputs.build_version }}
-
-  push:
-    branches: [ "test_build" ]
-  pull_request:
-    branches: [ "test_build" ]
-
-
-# Should this be conditionalized?
-env:
-  package: gha-practice
-
-
-#permissions:
-#add this later
+        value: ${{ jobs.build.outputs.build_version }}
 
 
 jobs:
-  build_all:
-    name: Build All
+  build:
+    name: Build
     runs-on: ubuntu-latest
     outputs:
       build_version: ${{ steps.build_version.outputs.build_version }}
@@ -43,6 +42,9 @@ jobs:
 
       - name: Read version and save in "build_version" environment variable
         run: echo "build_version=$(make show_version)" >> $GITHUB_ENV
+
+      - name: Set package name in env
+        run: echo "package=${{ inputs.package_name }}" >> $GITHUB_ENV
 
       - id: build_version
         run: echo "build_version=${build_version}" >> $GITHUB_OUTPUT
