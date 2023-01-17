@@ -17,9 +17,18 @@ on:
         type: string
         default: "gha-practice"
     outputs:
+      package_name:
+        description: Name of package
+        value: ${{ inputs.package_name }}
       build_version:
         description: Build version
         value: ${{ jobs.build.outputs.build_version }}
+      build_arch:
+        description: Build architecture
+        value: ${{ jobs.build.outputs.build_arch }}
+      build_artifacts_name:
+        description: Build artifacts name
+        value: ${{ jobs.build.outputs.build_artifacts_name }}
 
 
 jobs:
@@ -96,10 +105,13 @@ jobs:
         run: |
           echo "release_files=${release_files}"
 
+      - id: build_artifacts_name
+        run: echo "build_artifacts_name=${package}-build-artifacts-${build_version}" >> $GITHUB_OUTPUT
+
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.package }}-build-artifacts-${{ env.build_version }}
+          name: ${{ steps.build_artifacts_name.outputs.build_artifacts_name }}
           path: |
             ${{ env.release_files }}
           if-no-files-found: error
