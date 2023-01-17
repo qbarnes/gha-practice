@@ -41,15 +41,27 @@ TAR_TARGETS = $(TAR_SRC) \
 
 dstr = $(shell date)
 
+
 all:
 	echo "make all: TARGET_OS = $(TARGET_OS)"
+
 
 show_version:
 	@echo "$(version)"
 
 fullrelease:
+
 	echo "make fullrelease"
 	echo '$(TAR_PREFIX)-src.tar.gz $(dstr)' > '$(TAR_PREFIX)-src.tar.gz'
 	echo '$(TAR_PREFIX)-linux-$(target_arch).tar.gz $(dstr)' > \
 		'$(TAR_PREFIX)-linux-$(target_arch).tar.gz'
 	echo '$(TAR_PREFIX)-msdos.tar.gz $(dstr)' > '$(TAR_PREFIX)-msdos.tar.gz'
+
+
+release_notes: ChangeLog
+	sed -nre '/^$(version) /,/^[0-9.]+ /p' ChangeLog | \
+		tail -n +3 | head -n -2 > '$@'
+
+
+.PHONY: all progs show_version fullrelease
+.DELETE_ON_ERROR:
