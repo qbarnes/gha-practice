@@ -126,8 +126,9 @@ jobs:
       - name: Check for files
         run: ls -l . github_artifacts
 
-#      - uses: "marvinpinto/action-automatic-releases@latest"
-#        with:
-#          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-#          prerelease: false
-#          files: |
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          files: |
+            github_artifacts/*
