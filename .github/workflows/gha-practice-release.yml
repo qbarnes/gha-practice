@@ -44,12 +44,12 @@ jobs:
 
       - name: Show version
         run: |
-          echo needs.build_all.outputs.build_version=${{ needs.build_all.outputs.build_version }}
+          echo needs.call_build_all.outputs.build_version=${{ needs.call_build_all.outputs.build_version }}
 
       - name: Create tag
         uses: rickstaa/action-create-tag@v1
         with:
-          tag: "v${{ needs.build_all.outputs.build_version }}"
+          tag: "v${{ needs.call_build_all.outputs.build_version }}"
 
       - name: Make artifacts directory
         run: mkdir github_artifacts
@@ -58,7 +58,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           path: github_artifacts
-          name: ${{ env.package }}-build-artifacts-${{ needs.build_all.outputs.build_version }}
+          name: ${{ env.package }}-build-artifacts-${{ needs.call_build_all.outputs.build_version }}
 
       - name: Move release notes
         run: mv github_artifacts/release_notes .
@@ -77,7 +77,7 @@ jobs:
         with:
           artifactErrorsFailBuild: true
           makeLatest: true
-          name: "Release ${{ needs.build_all.outputs.build_version }}"
-          tag: "v${{ needs.build_all.outputs.build_version }}"
+          name: "Release ${{ needs.call_build_all.outputs.build_version }}"
+          tag: "v${{ needs.call_build_all.outputs.build_version }}"
           bodyFile: release_notes
           artifacts: github_artifacts/*
