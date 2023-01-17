@@ -16,7 +16,7 @@ env:
 
 jobs:
   call_build_all:
-    uses: ./.github/workflows/gha-practice-build.yml
+    uses: .github/workflows/gha-practice-build.yml
     secrets: inherit
 
   release:
