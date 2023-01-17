@@ -49,9 +49,9 @@ all:
 show_version:
 	@echo "$(version)"
 
-fullrelease:
+fullrelease: release_notes
 
-	echo "make fullrelease"
+	@echo "make fullrelease"
 	echo '$(TAR_PREFIX)-src.tar.gz $(dstr)' > '$(TAR_PREFIX)-src.tar.gz'
 	echo '$(TAR_PREFIX)-linux-$(target_arch).tar.gz $(dstr)' > \
 		'$(TAR_PREFIX)-linux-$(target_arch).tar.gz'
