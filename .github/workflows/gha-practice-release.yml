@@ -119,8 +119,8 @@ jobs:
 
       - name: Download build artifacts
         uses: actions/download-artifact@v3
-        working-directory: github_artifacts
         with:
+          path: github_artifacts
           name: ${{ env.package }}-build-artifacts-${{ needs.build_all.outputs.build_version }}
 
       - name: Check for files
