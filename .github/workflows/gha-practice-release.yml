@@ -109,7 +109,8 @@ jobs:
         run: |
           echo needs.build_all.outputs.build_version=${{ needs.build_all.outputs.build_version }}
 
-      - uses: rickstaa/action-create-tag
+      - name: Create tag
+        uses: rickstaa/action-create-tag
         with:
           tag: "v${{ needs.build_all.outputs.build_version }}"
 
