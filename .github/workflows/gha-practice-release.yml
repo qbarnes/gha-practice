@@ -53,10 +53,10 @@ jobs:
           name: ${{ needs.call_build.outputs.build_artifacts_name }}
 
       - name: Check for files
-        run: ls -l . ${{ needs.call_build.outputs.build_artifacts_name }}
+        run: ls -l . '${{ needs.call_build.outputs.build_artifacts_name }}'
 
       - name: Move release notes
-        run: mv github_artifacts/release_notes .
+        run: mv '${{ needs.call_build.outputs.build_artifacts_name }}/release_notes' .
 
       - uses: ncipollo/release-action@v1
         with:
