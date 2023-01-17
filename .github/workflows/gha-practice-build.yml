@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       package_name:
-        name: Name of package
+        description: Name of package
         required: false
         type: string
         default: "gha-practice"
@@ -12,7 +12,7 @@ on:
   workflow_call:
     inputs:
       package_name:
-        name: Name of package
+        description: Name of package
         required: false
         type: string
         default: "gha-practice"
