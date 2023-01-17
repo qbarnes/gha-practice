@@ -28,6 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       build_version: ${{ steps.build_version.outputs.build_version }}
+      build_arch: ${{ steps.build_arch.outputs.build_arch }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -40,14 +41,20 @@ jobs:
           tar -xf djgpp-linux64-gcc1020.tar.bz2 -C djgpp
           echo "$PWD/djgpp/bin" >> $GITHUB_PATH
 
-      - name: Read version and save in "build_version" environment variable
-        run: echo "build_version=$(make show_version)" >> $GITHUB_ENV
-
       - name: Set package name in env
         run: echo "package=${{ inputs.package_name }}" >> $GITHUB_ENV
 
+      - name: Read version and save in "build_version" environment variable
+        run: echo "build_version=$(make show_version)" >> $GITHUB_ENV
+
+      - name: Read architecture and save in "build_arch" environment variable
+        run: echo "build_arch=$(arch)" >> $GITHUB_ENV
+
       - id: build_version
         run: echo "build_version=${build_version}" >> $GITHUB_OUTPUT
+
+      - id: build_arch
+        run: echo "build_arch=${build_arch}" >> $GITHUB_OUTPUT
 
       - name: Add source tarball to "release_files"
         run: |
@@ -61,7 +68,7 @@ jobs:
       - name: Add linux tarball to "release_files"
         run: |
           echo "release_files<<EOF" >> $GITHUB_ENV
-          echo -e "${release_files}${release_files:+\n}${package}-${build_version}-linux-x86_64.tar.gz" >> $GITHUB_ENV
+          echo -e "${release_files}${release_files:+\n}${package}-${build_version}-linux-${arch}.tar.gz" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
       - name: Build MS-DOS
