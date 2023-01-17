@@ -43,17 +43,17 @@ jobs:
         with:
           tag: "v${{ needs.call_build.outputs.build_version }}"
 
-      - name: Make artifacts directory
-        run: mkdir github_artifacts
+#      - name: Make artifacts directory
+#        run: mkdir github_artifacts
 
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
-          path: github_artifacts
+          #path: github_artifacts
           name: ${{ needs.call_build.outputs.build_artifacts_name }}
 
       - name: Check for files
-        run: ls -l . github_artifacts
+        run: ls -l . ${{ needs.call_build.outputs.build_artifacts_name }}
 
       - name: Move release notes
         run: mv github_artifacts/release_notes .
@@ -65,4 +65,4 @@ jobs:
           name: "Release ${{ needs.call_build.outputs.build_version }}"
           tag: "v${{ needs.call_build.outputs.build_version }}"
           bodyFile: release_notes
-          artifacts: github_artifacts/*
+          artifacts: ${{ needs.call_build.outputs.build_artifacts_name }}/*
