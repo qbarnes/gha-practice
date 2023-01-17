@@ -14,23 +14,7 @@ env:
   package: gha-practice
 
 
-#  label:
-#    types:
-#      - [created, edited]
-
-
-#permissions:
-#add this later
-
-
 jobs:
-#  build:
-#    name: Build All
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v3
-#      - uses: .github/workflows/gha-practice-build.yml
-
   call_build_all:
     uses: ./.github/workflows/gha-practice-build.yml
     secrets: inherit
@@ -65,13 +49,6 @@ jobs:
 
       - name: Check for files
         run: ls -l . github_artifacts
-
-#      - uses: "marvinpinto/action-automatic-releases@latest"
-#        with:
-#          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-#          prerelease: false
-#          files: |
-#            github_artifacts/*
 
       - uses: ncipollo/release-action@v1
         with:
