@@ -77,7 +77,7 @@ jobs:
       - name: Add linux tarball to "release_files"
         run: |
           echo "release_files<<EOF" >> $GITHUB_ENV
-          echo -e "${release_files}${release_files:+\n}${package}-${build_version}-linux-${arch}.tar.gz" >> $GITHUB_ENV
+          echo -e "${release_files}${release_files:+\n}${package}-${build_version}-linux-${build_arch}.tar.gz" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
       - name: Build MS-DOS
