@@ -56,7 +56,7 @@ jobs:
         run: ls -l . github_artifacts
 
       - name: Move release notes
-        run: mv github_artifacts/release_notes .
+        run: mv github_artifacts/release_description .
 
       - uses: ncipollo/release-action@v1
         with:
@@ -64,5 +64,5 @@ jobs:
           makeLatest: true
           name: "Release ${{ needs.call_build.outputs.build_version }}"
           tag: "v${{ needs.call_build.outputs.build_version }}"
-          bodyFile: release_notes
+          bodyFile: release_description
           artifacts: github_artifacts/*

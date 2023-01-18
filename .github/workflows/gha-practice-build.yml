@@ -91,10 +91,10 @@ jobs:
           echo -e "${release_files}${release_files:+\n}${package}-${build_version}-msdos.tar.gz" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
-      - name: Add "release_notes" file to "release_files"
+      - name: Add "release_description" file to "release_files"
         run: |
           echo "release_files<<EOF" >> $GITHUB_ENV
-          echo -e "${release_files}${release_files:+\n}release_notes" >> $GITHUB_ENV
+          echo -e "${release_files}${release_files:+\n}release_description" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
       - name: Build full release

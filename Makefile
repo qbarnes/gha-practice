@@ -49,7 +49,7 @@ all:
 show_version:
 	@echo "$(version)"
 
-fullrelease: release_notes
+fullrelease: release_description
 
 	@echo "make fullrelease"
 	echo '$(TAR_PREFIX)-src.tar.gz $(dstr)' > '$(TAR_PREFIX)-src.tar.gz'
@@ -58,7 +58,7 @@ fullrelease: release_notes
 	echo '$(TAR_PREFIX)-msdos.tar.gz $(dstr)' > '$(TAR_PREFIX)-msdos.tar.gz'
 
 
-release_notes: ChangeLog
+release_description: ChangeLog
 	sed -nre '/^$(version) /,/^[0-9.]+ /p' ChangeLog | \
 		tail -n +3 | head -n -2 > '$@'
 
