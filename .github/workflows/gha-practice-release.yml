@@ -43,20 +43,20 @@ jobs:
         with:
           tag: "v${{ needs.call_build.outputs.build_version }}"
 
-#      - name: Make artifacts directory
-#        run: mkdir github_artifacts
+      - name: Make artifacts directory
+        run: mkdir github_artifacts
 
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
-          #path: github_artifacts
+          path: github_artifacts
           name: ${{ needs.call_build.outputs.build_artifacts_name }}
 
       - name: Check for files
-        run: ls -l . '${{ needs.call_build.outputs.build_artifacts_name }}'
+        run: ls -l . github_artifacts
 
       - name: Move release notes
-        run: mv '${{ needs.call_build.outputs.build_artifacts_name }}/release_notes' .
+        run: mv github_artifacts/release_notes .
 
       - uses: ncipollo/release-action@v1
         with:
@@ -65,4 +65,4 @@ jobs:
           name: "Release ${{ needs.call_build.outputs.build_version }}"
           tag: "v${{ needs.call_build.outputs.build_version }}"
           bodyFile: release_notes
-          artifacts: ${{ needs.call_build.outputs.build_artifacts_name }}/*
+          artifacts: github_artifacts/*
