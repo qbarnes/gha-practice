@@ -48,8 +48,7 @@ jobs:
       - name: Prep cross-compiler and add to PATH
         run: |
           wget -nv https://github.com/andrewwutw/build-djgpp/releases/download/v3.1/djgpp-linux64-gcc1020.tar.bz2
-          mkdir djgpp
-          tar -xf djgpp-linux64-gcc1020.tar.bz2 -C djgpp
+          tar -xf djgpp-linux64-gcc1020.tar.bz2
           echo "$PWD/djgpp/bin" >> $GITHUB_PATH
 
       - name: Set package name in env
