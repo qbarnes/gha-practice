@@ -6,15 +6,18 @@ on:
 
 jobs:
   doit:
-    name: when are variables expanded
+    name: when are variables expanded?
     runs-on: ubuntu-latest
     env:
       the_dir: /a/b/c
       the_file: zzz
-      the_path: ${{ env.the_dir }}/${{ env.the_file }}
+      # Line below generates an "Unrecognized named-value: 'env'" error.
+      #the_path: ${{ env.the_dir }}/${{ env.the_file }}
     steps:
       - name: Show stuff
         run: |
           echo "the_dir=${the_dir}"
           echo "the_file=${the_file}"
           echo "the_path=${the_path}"
+        env:
+          the_path: ${{ env.the_dir }}/${{ env.the_file }}
