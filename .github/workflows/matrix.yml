@@ -1,0 +1,54 @@
+name: Do matrix tests
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+  matrix_job:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [linux_x86_64, linux_armv7l, linux_aarch64, msdos, mswin32, mswin64]
+        include:
+          - platform: linux_x86_64
+            target_platform_name: linux
+            target_platform: LINUX_X86_64
+            target_arch: .x86_64
+          - platform: linux_armv7l
+            container: ${{ inputs.container_base }}/ubuntu-20.04-crossbuild-armv7l
+            target_platform_name: linux
+            target_platform: LINUX_ARMV7L
+            target_arch: .armv7l
+          - platform: linux_aarch64
+            container: ${{ inputs.container_base }}/ubuntu-20.04-crossbuild-aarch64
+            target_platform_name: linux
+            target_platform: LINUX_AARCH64
+            target_arch: .aarch64
+          - platform: msdos
+            container: ${{ inputs.container_base }}/ubuntu-22.04-crossbuild-msdos
+            target_platform_name: msdos
+            target_platform: MSDOS
+          - platform: mswin32
+            container: ${{ inputs.container_base }}/ubuntu-22.04-crossbuild-mswindows
+            target_platform_name: win32
+            target_platform: MSWIN32
+          - platform: mswin64
+            container: ${{ inputs.container_base }}/ubuntu-22.04-crossbuild-mswindows
+            target_platform_name: win64
+            target_platform: MSWIN64
+
+    env:
+      target_platform_full_name: "${{ matrix.target_platform_name }}${{ matrix.target_arch }}"
+
+    steps:
+      - name: A
+        run: |
+          echo "1: ${{ matrix.target_platform_name }}${{ matrix.target_arch }}"
+
+      - name: B
+        run: |
+          echo "2: ${{ env.target_platform_full_name }}"
+          echo "3: ${target_platform_full_name}"
+
